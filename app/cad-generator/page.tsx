@@ -107,7 +107,12 @@ export default function CadGeneratorPage() {
         }));
     };
 
-    const handleGenerate = async (inputs) => {
+    const handleGenerate = async (inputs: {
+        prompt?: string;
+        sketchData?: string | null;
+        speechData?: string | null;
+        photoData?: string | null;
+    }) => {
         // Reset processing steps
         setProcessingSteps({
             sketch: "pending",
@@ -138,17 +143,13 @@ export default function CadGeneratorPage() {
             }
 
             // Prepare request payload - matches Azure API expectations
-            const payload = {};
-
-            // Always include a prompt
-            if (prompt) {
-                payload.prompt = prompt;
-            } else if (speechData) {
-                payload.prompt = speechData;
-            } else {
-                // For sketch-only or photo-only mode, send a default prompt
-                payload.prompt = "Generate a CAD model based on this input";
-            }
+            const payload: {
+                prompt: string;
+                sketchData?: string;
+                photoData?: string;
+            } = {
+                prompt: prompt || speechData || "Generate a CAD model based on this input"
+            };
 
             // Add sketch data if available
             if (sketchData) {
@@ -516,7 +517,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
     // Resize handlers
-    const handleResizeStart = (e) => {
+    const handleResizeStart = (e: React.MouseEvent) => {
         e.preventDefault();
 
         let position;
@@ -537,7 +538,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
         document.addEventListener("mouseup", handleResizeEnd);
     };
 
-    const handleResizeMove = (e) => {
+    const handleResizeMove = (e: MouseEvent) => {
         if (!isResizing || !resizeStartRef.current || !containerRef.current)
             return;
 
