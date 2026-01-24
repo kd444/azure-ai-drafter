@@ -38,7 +38,6 @@ import {
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CadModelViewer } from "@/components/cad-model-viewer";
 import { InputPanel } from "@/components/input-panel";
 
@@ -1038,18 +1037,14 @@ renderer.setSize(window.innerWidth, window.innerHeight);
     return (
         <div className="container mx-auto py-4">
             <div className="flex flex-col space-y-4">
-                {/* API Key Notice */}
-                <Alert className="border-blue-200 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-900">
-                    <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                    <AlertTitle className="text-blue-900 dark:text-blue-100">
-                        Azure API Configuration Required
-                    </AlertTitle>
-                    <AlertDescription className="text-blue-800 dark:text-blue-200 text-sm">
-                        This feature requires Azure OpenAI and Computer Vision API keys. 
-                        If not configured, the app will use mock/fallback data for demonstration. 
-                        Configure your API keys in <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">.env.local</code> to enable full functionality.
-                    </AlertDescription>
-                </Alert>
+                {/* Compact API Notice */}
+                <div className="flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-md text-xs sm:text-sm text-blue-800 dark:text-blue-200">
+                    <Info className="h-4 w-4 flex-shrink-0 text-blue-600 dark:text-blue-400" />
+                    <p>
+                        <strong className="font-semibold">Azure API keys needed.</strong> Using mock data if not configured. 
+                        <span className="hidden sm:inline">Add keys to <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded text-xs">.env.local</code></span>
+                    </p>
+                </div>
 
                 <div className="flex justify-between items-center">
                     <h1 className="text-2xl font-bold tracking-tight">
