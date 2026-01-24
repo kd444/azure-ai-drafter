@@ -34,6 +34,7 @@ import {
     LayoutPanelTop,
     Expand,
     Shrink,
+    Info,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
