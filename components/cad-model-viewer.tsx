@@ -93,10 +93,30 @@ export function CadModelViewer({
     const [gridSize, setGridSize] = useState(20);
     const [font, setFont] = useState<Font | null>(null);
 
+    // Check WebGL support
+    const checkWebGLSupport = (): boolean => {
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            return !!gl;
+        } catch (e) {
+            return false;
+        }
+    };
+
     // Initialize the scene
     useEffect(() => {
         if (!containerRef.current || !modelData) {
             console.log("Container or model data not available");
+            return;
+        }
+
+        // Check WebGL support first
+        if (!checkWebGLSupport()) {
+            setError(
+                "WebGL is not supported or enabled in your browser. Please enable WebGL or try a different browser (Chrome, Firefox, or Edge recommended)."
+            );
+            setIsLoading(false);
             return;
         }
 
@@ -153,12 +173,24 @@ export function CadModelViewer({
                 1000
             );
 
-            const renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(
-                containerRef.current.clientWidth,
-                containerRef.current.clientHeight
-            );
-            containerRef.current.appendChild(renderer.domElement);
+            let renderer: THREE.WebGLRenderer;
+            try {
+                renderer = new THREE.WebGLRenderer({ 
+                    antialias: true,
+                    alpha: true,
+                    failIfMajorPerformanceCaveat: false
+                });
+                renderer.setSize(
+                    containerRef.current.clientWidth,
+                    containerRef.current.clientHeight
+                );
+                containerRef.current.appendChild(renderer.domElement);
+            } catch (rendererError) {
+                console.error("Failed to create WebGL renderer:", rendererError);
+                throw new Error(
+                    "Failed to initialize WebGL renderer. Your browser or device may not support WebGL, or it may be disabled."
+                );
+            }
 
             // Add controls
             const controls = new OrbitControls(camera, renderer.domElement);
@@ -1365,12 +1397,19 @@ export function CadModelViewer({
 
             {error && (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10">
-                    <div className="bg-destructive/10 text-destructive p-4 rounded-md max-w-md">
-                        <h3 className="font-bold mb-2">Error Loading Model</h3>
-                        <p>{error}</p>
-                        <p className="text-sm mt-2">
-                            Check the browser console for more details.
-                        </p>
+                    <div className="bg-destructive/10 text-destructive p-6 rounded-md max-w-lg">
+                        <h3 className="font-bold mb-3 text-lg">Error Loading Model</h3>
+                        <p className="mb-4">{error}</p>
+                        <div className="text-sm space-y-2">
+                            <p className="font-semibold">Troubleshooting steps:</p>
+                            <ul className="list-disc pl-5 space-y-1">
+                                <li>Try using a modern browser (Chrome, Firefox, Edge, or Safari)</li>
+                                <li>Enable hardware acceleration in your browser settings</li>
+                                <li>Update your graphics drivers</li>
+                                <li>Try refreshing the page</li>
+                                <li>Check if WebGL is enabled by visiting: <a href="https://get.webgl.org/" target="_blank" rel="noopener noreferrer" className="underline">get.webgl.org</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             )}

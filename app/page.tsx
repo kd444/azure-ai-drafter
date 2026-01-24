@@ -1,12 +1,45 @@
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, Brain, Building, Cpu, LineChart, Users } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { ArrowRight, Brain, Building, Cpu, LineChart, Users, AlertTriangle, Info } from "lucide-react"
 import Link from "next/link"
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
+      {/* Important Notice Banner */}
+      <section className="px-4 md:px-6 py-4 bg-yellow-50 dark:bg-yellow-950/20 border-b border-yellow-200 dark:border-yellow-900">
+        <div className="container mx-auto">
+          <Alert variant="default" className="border-yellow-400 bg-transparent">
+            <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-500" />
+            <AlertTitle className="text-yellow-900 dark:text-yellow-100 font-semibold">
+              Azure API Keys Required
+            </AlertTitle>
+            <AlertDescription className="text-yellow-800 dark:text-yellow-200">
+              <p className="mb-2">
+                This application requires Azure OpenAI and Azure Computer Vision API keys to function. 
+                The deployed version will not work without your own API keys due to cost considerations.
+              </p>
+              <p className="text-sm">
+                <strong>To use this app:</strong> Clone the repository, set up your Azure services, 
+                add your API keys to <code className="bg-yellow-100 dark:bg-yellow-900 px-1 rounded">.env.local</code>, 
+                and run locally. See the{" "}
+                <a 
+                  href="https://github.com/your-username/aidraft#readme" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="underline font-medium hover:text-yellow-950 dark:hover:text-yellow-50"
+                >
+                  README
+                </a>{" "}
+                for detailed setup instructions.
+              </p>
+            </AlertDescription>
+          </Alert>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section className="px-4 md:px-6 py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background via-background to-muted">
         <div className="container mx-auto grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">

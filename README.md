@@ -4,6 +4,27 @@ AIDraft is a cutting-edge architectural design platform that integrates artifici
 
 ---
 
+## ⚠️ IMPORTANT NOTICE - Azure API Keys Required
+
+**This application requires Azure API keys to function. The deployed/live version will NOT work without your own API keys due to cost considerations.**
+
+### To Use This Application:
+
+1. **Clone this repository** to your local machine
+2. **Set up your own Azure services** (Azure OpenAI & Azure Computer Vision)
+3. **Add your API keys** to a `.env.local` file
+4. **Run locally** using `npm run dev`
+
+📋 **[Step-by-step setup guide available in SETUP.md](./SETUP.md)**
+
+Azure AI services have associated costs. Please be aware of Azure pricing before setting up:
+- [Azure OpenAI Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/)
+- [Azure Computer Vision Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/computer-vision/)
+
+For demonstration purposes without Azure costs, the app includes fallback mock data when API calls fail.
+
+---
+
 ## Application Architecture
 
 ![AIDraft Architecture](/app_architecture.png)
@@ -36,23 +57,32 @@ AIDraft is a cutting-edge architectural design platform that integrates artifici
 
 -   Node.js (v18+) and npm
 -   Git
+-   **Azure Account** with active subscription
+-   **Azure OpenAI** resource with GPT-4 deployment
+-   **Azure Computer Vision** resource
 
 ### Installation
 
-Clone the repository:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/your-username/aidraft.git
 cd aidraft
 ```
 
-Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-Create a `.env.local` file in the root directory:
+3. **Set up Azure Services** (Required):
+   - Create an [Azure OpenAI resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesOpenAI)
+   - Deploy a GPT-4 model in your Azure OpenAI resource
+   - Create an [Azure Computer Vision resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesComputerVision)
+   - Note down your API keys and endpoints
+
+4. Create a `.env.local` file in the root directory:
 
 ```env
 # App Settings
@@ -73,13 +103,20 @@ AUTH_SECRET=your_auth_secret_key
 NEXTAUTH_URL=http://localhost:3000
 ```
 
-Run the development server:
+5. Run the development server:
 
 ```bash
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to access the app.
+6. Visit [http://localhost:3000](http://localhost:3000) to access the app.
+
+### ⚠️ Cost Management Tips
+
+- Azure OpenAI charges per token used. Monitor your usage in the Azure portal.
+- Set up spending limits and alerts in your Azure account.
+- Use the mock data fallback for testing UI without incurring costs.
+- Consider using Azure's free tier for initial testing (limited usage).
 
 ## ⚙️ Configuration Guide
 
@@ -113,15 +150,17 @@ export const AGENT_CONFIG = {
 
 ### Setting Up Azure Services
 
-**Azure OpenAI:**
+📋 **For detailed step-by-step instructions, see [SETUP.md](./SETUP.md)**
 
--   Create an Azure OpenAI resource and deploy a model.
--   Add your key and endpoint details to `.env.local`.
+**Quick Overview:**
+
+**Azure OpenAI:**
+-   Create an Azure OpenAI resource and deploy a GPT-4 model
+-   Add your key and endpoint details to `.env.local`
 
 **Azure Computer Vision:**
-
--   Set up an Azure Computer Vision resource.
--   Update your key and endpoint in `.env.local`.
+-   Set up an Azure Computer Vision resource
+-   Update your key and endpoint in `.env.local`
 
 ## 📂 Project Structure
 
