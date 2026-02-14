@@ -186,29 +186,30 @@ export default function ProjectsPage() {
     };
 
     return (
-        <div className="container mx-auto p-6 space-y-6">
+        <div className="container mx-auto p-4 md:p-6 space-y-6">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
                         Projects
                     </h1>
-                    <p className="text-muted-foreground mt-1">
+                    <p className="text-muted-foreground mt-1 text-sm md:text-base">
                         Manage and track your architectural designs
                     </p>
                 </div>
 
-                <div className="flex gap-2">
-                    <Link href="/templates">
-                        <Button variant="outline" className="gap-1">
+                <div className="flex gap-2 w-full sm:w-auto">
+                    <Link href="/templates" className="flex-1 sm:flex-none">
+                        <Button variant="outline" className="gap-1 w-full">
                             <FileText className="h-4 w-4" />
-                            Templates
+                            <span className="hidden sm:inline">Templates</span>
                         </Button>
                     </Link>
-                    <Link href="/project/new">
-                        <Button className="gap-1">
+                    <Link href="/project/new" className="flex-1 sm:flex-none">
+                        <Button className="gap-1 w-full">
                             <Plus className="h-4 w-4" />
-                            New Project
+                            <span className="hidden sm:inline">New Project</span>
+                            <span className="sm:hidden">New</span>
                         </Button>
                     </Link>
                 </div>
@@ -233,19 +234,19 @@ export default function ProjectsPage() {
                     onValueChange={setActiveFilter}
                 >
                     <TabsList className="grid grid-cols-4 w-full sm:w-auto">
-                        <TabsTrigger value="all">All</TabsTrigger>
-                        <TabsTrigger value="favorites">Favorites</TabsTrigger>
-                        <TabsTrigger value="inProgress">
-                            In Progress
+                        <TabsTrigger value="all" className="text-xs sm:text-sm">All</TabsTrigger>
+                        <TabsTrigger value="favorites" className="text-xs sm:text-sm">Favorites</TabsTrigger>
+                        <TabsTrigger value="inProgress" className="text-xs sm:text-sm">
+                            Active
                         </TabsTrigger>
-                        <TabsTrigger value="completed">Completed</TabsTrigger>
+                        <TabsTrigger value="completed" className="text-xs sm:text-sm">Done</TabsTrigger>
                     </TabsList>
                 </Tabs>
             </div>
 
             {/* Projects Grid */}
             {filteredProjects.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {filteredProjects.map((project) => (
                         <ProjectCard
                             key={project.id}
@@ -257,7 +258,7 @@ export default function ProjectsPage() {
 
                     {/* Create New Project Card */}
                     <Link href="/project/new" className="block h-full">
-                        <Card className="border-dashed h-full flex flex-col items-center justify-center text-center p-6 cursor-pointer hover:border-primary/80 transition-colors">
+                        <Card className="border-dashed h-full flex flex-col items-center justify-center text-center p-6 cursor-pointer hover:border-primary/80 transition-colors min-h-[200px]">
                             <div className="rounded-full bg-primary/10 p-4 mb-4">
                                 <Plus className="h-8 w-8 text-primary" />
                             </div>

@@ -68,11 +68,11 @@ export default function SettingsPage() {
     };
 
     return (
-        <div className="container mx-auto py-6 px-4 md:px-6">
+        <div className="container mx-auto py-4 px-4 md:py-6 md:px-6">
             <div className="flex flex-col space-y-6">
                 <div>
-                    <h1 className="text-2xl font-bold">Settings</h1>
-                    <p className="text-muted-foreground">
+                    <h1 className="text-2xl md:text-3xl font-bold">Settings</h1>
+                    <p className="text-muted-foreground text-sm md:text-base">
                         Manage your account preferences
                     </p>
                 </div>
@@ -82,22 +82,26 @@ export default function SettingsPage() {
                     onValueChange={setActiveTab}
                     className="space-y-6"
                 >
-                    <TabsList className="grid grid-cols-4 w-full max-w-md">
-                        <TabsTrigger value="account">
-                            <User className="h-4 w-4 mr-2" />
-                            Account
+                    <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full max-w-full sm:max-w-md gap-1">
+                        <TabsTrigger value="account" className="text-xs sm:text-sm flex items-center gap-1 sm:gap-2">
+                            <User className="h-4 w-4" />
+                            <span className="hidden sm:inline">Account</span>
+                            <span className="sm:hidden">Acct</span>
                         </TabsTrigger>
-                        <TabsTrigger value="appearance">
-                            <PaletteIcon className="h-4 w-4 mr-2" />
-                            Appearance
+                        <TabsTrigger value="appearance" className="text-xs sm:text-sm flex items-center gap-1 sm:gap-2">
+                            <PaletteIcon className="h-4 w-4" />
+                            <span className="hidden sm:inline">Appearance</span>
+                            <span className="sm:hidden">Look</span>
                         </TabsTrigger>
-                        <TabsTrigger value="notifications">
-                            <BellRing className="h-4 w-4 mr-2" />
-                            Notifications
+                        <TabsTrigger value="notifications" className="text-xs sm:text-sm flex items-center gap-1 sm:gap-2">
+                            <BellRing className="h-4 w-4" />
+                            <span className="hidden sm:inline">Notifications</span>
+                            <span className="sm:hidden">Notif</span>
                         </TabsTrigger>
-                        <TabsTrigger value="ai">
-                            <BrainCircuit className="h-4 w-4 mr-2" />
-                            AI Settings
+                        <TabsTrigger value="ai" className="text-xs sm:text-sm flex items-center gap-1 sm:gap-2">
+                            <BrainCircuit className="h-4 w-4" />
+                            <span className="hidden sm:inline">AI Settings</span>
+                            <span className="sm:hidden">AI</span>
                         </TabsTrigger>
                     </TabsList>
 

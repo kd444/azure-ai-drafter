@@ -38,8 +38,10 @@ export default function RootLayout({
                     enableSystem
                 >
                     <div className="flex h-screen overflow-hidden">
-                        <Sidebar />
-                        <div className="flex flex-col flex-1 w-0 overflow-hidden">
+                        <div className="hidden md:block">
+                            <Sidebar />
+                        </div>
+                        <div className="flex flex-col flex-1 w-full md:w-0 overflow-hidden">
                             <Header />
                             <main className="relative flex-1 overflow-y-auto focus:outline-none">
                                 {children}

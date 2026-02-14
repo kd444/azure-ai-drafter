@@ -9,9 +9,17 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Bell, HelpCircle, LogOut, Settings, User } from "lucide-react";
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
+import { Bell, HelpCircle, LogOut, Settings, User, Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { useState } from "react";
+import { Sidebar } from "./sidebar";
 
 export function Header() {
     const [notifications, setNotifications] = useState([
@@ -26,10 +34,25 @@ export function Header() {
             time: "2 hours ago",
         },
     ]);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <header className="border-b bg-background h-16 flex items-center px-4 lg:px-6">
-            <div className="flex-1 flex items-center justify-end space-x-3">
+            <div className="flex items-center gap-3 md:hidden">
+                <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                    <SheetTrigger asChild>
+                        <Button variant="outline" size="icon">
+                            <Menu className="h-5 w-5" />
+                            <span className="sr-only">Toggle menu</span>
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="p-0 w-64">
+                        <Sidebar onNavigate={() => setMobileMenuOpen(false)} />
+                    </SheetContent>
+                </Sheet>
+            </div>
+
+            <div className="flex-1 flex items-center justify-end space-x-2 md:space-x-3">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button
@@ -74,7 +97,7 @@ export function Header() {
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className="hidden sm:flex">
                     <HelpCircle className="h-5 w-5" />
                 </Button>
 

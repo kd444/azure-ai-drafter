@@ -284,24 +284,25 @@ export default function TeamPage() {
     };
 
     return (
-        <div className="container mx-auto p-6 space-y-6">
+        <div className="container mx-auto p-4 md:p-6 space-y-6">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Team</h1>
-                    <p className="text-muted-foreground mt-1">
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Team</h1>
+                    <p className="text-muted-foreground mt-1 text-sm md:text-base">
                         Manage your architectural team and collaborators
                     </p>
                 </div>
 
-                <div className="flex gap-2">
-                    <Button variant="outline" className="gap-1">
+                <div className="flex gap-2 w-full sm:w-auto">
+                    <Button variant="outline" className="gap-1 flex-1 sm:flex-none">
                         <UserPlus className="h-4 w-4" />
-                        Invite
+                        <span className="hidden sm:inline">Invite</span>
                     </Button>
-                    <Button className="gap-1">
+                    <Button className="gap-1 flex-1 sm:flex-none">
                         <Users className="h-4 w-4" />
-                        Manage Roles
+                        <span className="hidden sm:inline">Manage Roles</span>
+                        <span className="sm:hidden">Roles</span>
                     </Button>
                 </div>
             </div>
@@ -314,10 +315,10 @@ export default function TeamPage() {
                     onValueChange={setActiveTeamTab}
                 >
                     <TabsList className="grid grid-cols-4 w-full sm:w-auto">
-                        <TabsTrigger value="all">All</TabsTrigger>
-                        <TabsTrigger value="architects">Architects</TabsTrigger>
-                        <TabsTrigger value="engineers">Engineers</TabsTrigger>
-                        <TabsTrigger value="management">Management</TabsTrigger>
+                        <TabsTrigger value="all" className="text-xs sm:text-sm">All</TabsTrigger>
+                        <TabsTrigger value="architects" className="text-xs sm:text-sm">Arch.</TabsTrigger>
+                        <TabsTrigger value="engineers" className="text-xs sm:text-sm">Eng.</TabsTrigger>
+                        <TabsTrigger value="management" className="text-xs sm:text-sm">Mgmt</TabsTrigger>
                     </TabsList>
                 </Tabs>
 
@@ -334,17 +335,17 @@ export default function TeamPage() {
             </div>
 
             {/* Team Members Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {filteredTeamMembers.map((member) => (
                     <TeamMemberCard key={member.id} member={member} />
                 ))}
 
                 {/* Add Team Member Card */}
-                <Card className="border-dashed flex flex-col items-center justify-center p-6 h-full">
+                <Card className="border-dashed flex flex-col items-center justify-center p-6 h-full min-h-[200px]">
                     <div className="rounded-full bg-primary/10 p-4 mb-4">
                         <UserPlus className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-medium">Add Team Member</h3>
+                    <h3 className="text-lg md:text-xl font-medium">Add Team Member</h3>
                     <p className="text-sm text-muted-foreground text-center mt-2">
                         Invite a new architect, engineer, or collaborator to
                         join your team
@@ -354,12 +355,12 @@ export default function TeamPage() {
             </div>
 
             {/* Team Projects Section */}
-            <div className="mt-10">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold tracking-tight">
+            <div className="mt-6 md:mt-10">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 md:mb-6">
+                    <h2 className="text-xl md:text-2xl font-bold tracking-tight">
                         Team Projects
                     </h2>
-                    <Button variant="outline" className="gap-1">
+                    <Button variant="outline" className="gap-1 w-full sm:w-auto">
                         <Plus className="h-4 w-4" />
                         New Project
                     </Button>

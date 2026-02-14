@@ -10,15 +10,15 @@ export default function Home() {
       {/* Compact Notice Banner */}
       <section className="px-4 py-2 bg-yellow-50 dark:bg-yellow-950/20 border-b border-yellow-200 dark:border-yellow-900">
         <div className="container mx-auto">
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-yellow-800 dark:text-yellow-200">
-            <AlertTriangle className="h-4 w-4 flex-shrink-0" />
+          <div className="flex items-start sm:items-center gap-2 text-xs sm:text-sm text-yellow-800 dark:text-yellow-200">
+            <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5 sm:mt-0" />
             <p className="flex-1">
               <strong className="font-semibold">API Keys Required:</strong> This app needs Azure API keys to work. 
               <a 
                 href="https://github.com/your-username/aidraft#readme" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="underline ml-1 hover:text-yellow-950 dark:hover:text-yellow-50"
+                className="underline ml-1 hover:text-yellow-950 dark:hover:text-yellow-50 inline-block"
               >
                 Setup Guide
               </a>
@@ -28,37 +28,37 @@ export default function Home() {
       </section>
 
       {/* Hero Section */}
-      <section className="px-4 md:px-6 py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background via-background to-muted">
+      <section className="px-4 md:px-6 py-8 md:py-12 lg:py-24 xl:py-32 bg-gradient-to-b from-background via-background to-muted">
         <div className="container mx-auto grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
           <div className="space-y-4">
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tighter">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter">
               AI-Powered Design Platform for Enterprise
             </h1>
-            <p className="text-muted-foreground text-lg md:text-xl max-w-[600px]">
+            <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-[600px]">
               Transform your design process with our integrated AI platform that combines sketch inputs, voice
               recognition, and real-time feedback from specialized AI agents.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/dashboard">
-                <Button size="lg" className="font-medium">
+              <Link href="/dashboard" className="w-full sm:w-auto">
+                <Button size="lg" className="font-medium w-full sm:w-auto">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/demo">
-                <Button size="lg" variant="outline" className="font-medium">
+              <Link href="/demo" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="font-medium w-full sm:w-auto">
                   View Demo
                 </Button>
               </Link>
             </div>
           </div>
-          <div className="relative aspect-video">
+          <div className="relative aspect-video min-h-[200px]">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-primary rounded-lg">
               <div className="absolute inset-0 bg-grid-white/10"></div>
             </div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-24 h-24 rounded-full bg-background flex items-center justify-center">
-                <Brain className="h-12 w-12 text-primary" />
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-background flex items-center justify-center">
+                <Brain className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
               </div>
             </div>
           </div>
@@ -66,16 +66,16 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="px-4 md:px-6 py-12 md:py-24 bg-background">
+      <section className="px-4 md:px-6 py-8 md:py-12 lg:py-24 bg-background">
         <div className="container mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold tracking-tighter mb-4">Enterprise-Grade AI Design</h2>
-            <p className="text-muted-foreground text-lg">
+          <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter mb-4">Enterprise-Grade AI Design</h2>
+            <p className="text-muted-foreground text-base sm:text-lg">
               Our platform combines the latest in AI technology with robust enterprise features to transform your design
               process.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             <FeatureCard
               icon={<Cpu />}
               title="AI-Powered Design"

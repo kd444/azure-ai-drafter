@@ -61,21 +61,21 @@ export default function ArchitecturalAnalyticsPage() {
     const [dateRange, setDateRange] = useState("last90days");
 
     return (
-        <div className="container mx-auto p-6 space-y-6">
+        <div className="container mx-auto p-4 md:p-6 space-y-6">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
                         Architectural Analytics
                     </h1>
-                    <p className="text-muted-foreground mt-1">
+                    <p className="text-muted-foreground mt-1 text-sm md:text-base">
                         Track design metrics and building performance
                     </p>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                     <Select value={dateRange} onValueChange={setDateRange}>
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger className="w-full sm:w-[180px]">
                             <SelectValue placeholder="Select timeframe" />
                         </SelectTrigger>
                         <SelectContent>
@@ -90,7 +90,7 @@ export default function ArchitecturalAnalyticsPage() {
                         </SelectContent>
                     </Select>
 
-                    <Button variant="outline">
+                    <Button variant="outline" className="w-full sm:w-auto">
                         <Download className="h-4 w-4 mr-2" />
                         Export
                     </Button>
@@ -162,13 +162,13 @@ export default function ArchitecturalAnalyticsPage() {
 
             {/* Main Analytics Tabs */}
             <Tabs defaultValue="projects">
-                <TabsList className="grid w-full max-w-md grid-cols-4">
-                    <TabsTrigger value="projects">Projects</TabsTrigger>
-                    <TabsTrigger value="spatial">Spatial</TabsTrigger>
-                    <TabsTrigger value="sustainability">
-                        Sustainability
+                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 max-w-full sm:max-w-md">
+                    <TabsTrigger value="projects" className="text-xs sm:text-sm">Projects</TabsTrigger>
+                    <TabsTrigger value="spatial" className="text-xs sm:text-sm">Spatial</TabsTrigger>
+                    <TabsTrigger value="sustainability" className="text-xs sm:text-sm">
+                        Sustain.
                     </TabsTrigger>
-                    <TabsTrigger value="compliance">Compliance</TabsTrigger>
+                    <TabsTrigger value="compliance" className="text-xs sm:text-sm">Comply</TabsTrigger>
                 </TabsList>
 
                 {/* Projects Analytics */}

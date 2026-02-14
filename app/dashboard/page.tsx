@@ -33,27 +33,27 @@ export default function DashboardPage() {
   ]
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-8">
+    <div className="p-4 md:p-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-          <p className="text-muted-foreground mt-1">Manage your design projects</p>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Projects</h1>
+          <p className="text-muted-foreground mt-1 text-sm md:text-base">Manage your design projects</p>
         </div>
         <Link href="/project/new">
-          <Button className="gap-1">
+          <Button className="gap-1 w-full sm:w-auto">
             <PlusCircle className="h-4 w-4" />
             New Project
           </Button>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
 
         <Link href="/project/new" className="block h-full">
-          <Card className="border-dashed h-full flex flex-col items-center justify-center text-center p-6 cursor-pointer hover:border-primary/80 transition-colors">
+          <Card className="border-dashed h-full flex flex-col items-center justify-center text-center p-6 cursor-pointer hover:border-primary/80 transition-colors min-h-[200px]">
             <PlusCircle className="h-12 w-12 text-muted-foreground mb-4" />
             <h3 className="text-xl font-medium">Create New Project</h3>
             <p className="text-sm text-muted-foreground mt-2">Start designing with AI assistance</p>

@@ -22,46 +22,54 @@ import {
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-export function Sidebar() {
+interface SidebarProps {
+    className?: string;
+    onNavigate?: () => void;
+}
+
+export function Sidebar({ className, onNavigate }: SidebarProps) {
     const pathname = usePathname();
     const [collapsed, setCollapsed] = useState(false);
 
     return (
         <div
             className={cn(
-                "border-r h-screen bg-background relative transition-all duration-300",
-                collapsed ? "w-16" : "w-64"
+                "border-r h-screen bg-background relative transition-all duration-300 flex-shrink-0",
+                collapsed ? "w-16" : "w-64",
+                className
             )}
         >
-            <div className="h-16 border-b flex items-center px-4 justify-between">
+            <div className="h-16 border-b flex items-center px-4 justify-between relative">
                 <div
                     className={cn(
                         "flex items-center gap-2",
                         collapsed && "justify-center w-full"
                     )}
                 >
-                    <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center flex-shrink-0">
                         <Cpu className="h-5 w-5 text-primary-foreground" />
                     </div>
                     {!collapsed && (
                         <span className="font-bold text-lg">AIDraft</span>
                     )}
                 </div>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className={cn(
-                        "absolute -right-4 top-16 rounded-full border bg-background",
-                        collapsed && "rotate-180"
-                    )}
-                    onClick={() => setCollapsed(!collapsed)}
-                >
-                    {collapsed ? (
-                        <ChevronRight className="h-4 w-4" />
-                    ) : (
-                        <ChevronLeft className="h-4 w-4" />
-                    )}
-                </Button>
+                {!onNavigate && (
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className={cn(
+                            "h-8 w-8 rounded-full hover:bg-accent z-10",
+                            collapsed && "absolute left-1/2 -translate-x-1/2"
+                        )}
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
+                        {collapsed ? (
+                            <ChevronRight className="h-4 w-4" />
+                        ) : (
+                            <ChevronLeft className="h-4 w-4" />
+                        )}
+                    </Button>
+                )}
             </div>
 
             <ScrollArea className="h-[calc(100vh-4rem)]">
@@ -73,6 +81,7 @@ export function Sidebar() {
                             label="Home"
                             active={pathname === "/"}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
                         <NavItem
                             href="/dashboard"
@@ -80,6 +89,7 @@ export function Sidebar() {
                             label="Dashboard"
                             active={pathname === "/dashboard"}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
                         <NavItem
                             href="/projects"
@@ -87,6 +97,7 @@ export function Sidebar() {
                             label="Projects"
                             active={pathname.startsWith("/project")}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
                         <NavItem
                             href="/cad-generator"
@@ -94,6 +105,7 @@ export function Sidebar() {
                             label="CAD Generator"
                             active={pathname.startsWith("/cad-generator")}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
                         <NavItem
                             href="/cad-test"
@@ -101,6 +113,7 @@ export function Sidebar() {
                             label="CAD Test"
                             active={pathname.startsWith("/cad-test")}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
                         <NavItem
                             href="/analytics"
@@ -108,6 +121,7 @@ export function Sidebar() {
                             label="Analytics"
                             active={pathname.startsWith("/analytics")}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
                         <NavItem
                             href="/team"
@@ -115,6 +129,7 @@ export function Sidebar() {
                             label="Team"
                             active={pathname.startsWith("/team")}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
 
                         <div
@@ -132,6 +147,7 @@ export function Sidebar() {
                             label="Settings"
                             active={pathname.startsWith("/settings")}
                             collapsed={collapsed}
+                            onNavigate={onNavigate}
                         />
                     </nav>
 
@@ -187,12 +203,14 @@ function NavItem({
     label,
     active,
     collapsed,
+    onNavigate,
 }: {
     href: string;
     icon: React.ReactNode;
     label: string;
     active: boolean;
     collapsed: boolean;
+    onNavigate?: () => void;
 }) {
     return (
         <Link
@@ -204,6 +222,7 @@ function NavItem({
                     : "text-muted-foreground hover:bg-secondary",
                 collapsed && "justify-center px-2"
             )}
+            onClick={onNavigate}
         >
             {icon}
             {!collapsed && <span>{label}</span>}
