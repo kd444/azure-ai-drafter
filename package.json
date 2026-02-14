@@ -11,7 +11,6 @@
     "dependencies": {
         "@ai-sdk/openai": "latest",
         "@azure/cognitiveservices-computervision": "^8.2.0",
-        "@azure/cognitiveservices-contentmoderator": "^5.0.1",
         "@azure/ms-rest-js": "^2.7.0",
         "@azure/openai": "^2.0.0",
         "@headlessui/react": "latest",
@@ -62,6 +61,7 @@
         "next": "15.1.11",
         "next-themes": "latest",
         "openai": "^4.89.0",
+        "postcss": "^8",
         "react": "^19.0.0",
         "react-day-picker": "^9.4.4",
         "react-dom": "^19.0.0",
@@ -75,7 +75,6 @@
         "tailwindcss": "^3.4.17",
         "tailwindcss-animate": "^1.0.7",
         "three": "latest",
-        "postcss": "^8",
         "vaul": "^1.0.0",
         "zod": "^3.25.76"
     },
