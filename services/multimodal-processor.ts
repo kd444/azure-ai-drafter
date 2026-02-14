@@ -32,28 +32,39 @@ const AZURE_CONTENT_MODERATOR_ENDPOINT =
     process.env.AZURE_CONTENT_MODERATOR_ENDPOINT || "";
 
 export class MultimodalProcessor {
-    private openAIClient: AzureOpenAI;
-    private visionClient: ComputerVisionClient;
+    private openAIClient: AzureOpenAI | null = null;
+    private visionClient: ComputerVisionClient | null = null;
     // Content moderation using Azure AI Content Safety instead
     private moderationEnabled: boolean = false;
     private speechConfig: SpeechConfig | null = null;
+    private initialized: boolean = false;
 
     constructor() {
+        // Don't initialize here to avoid build-time errors
+    }
+
+    private initialize() {
+        if (this.initialized) return;
+
         // Initialize Azure OpenAI client
-        this.openAIClient = new AzureOpenAI({
-            apiKey: AZURE_OPENAI_KEY,
-            apiVersion: AZURE_OPENAI_API_VERSION,
-            endpoint: AZURE_OPENAI_ENDPOINT,
-        });
+        if (AZURE_OPENAI_KEY && AZURE_OPENAI_ENDPOINT) {
+            this.openAIClient = new AzureOpenAI({
+                apiKey: AZURE_OPENAI_KEY,
+                apiVersion: AZURE_OPENAI_API_VERSION,
+                endpoint: AZURE_OPENAI_ENDPOINT,
+            });
+        }
 
         // Initialize Computer Vision client
-        const visionCredentials = new ApiKeyCredentials({
-            inHeader: { "Ocp-Apim-Subscription-Key": AZURE_VISION_KEY },
-        });
-        this.visionClient = new ComputerVisionClient(
-            visionCredentials,
-            AZURE_VISION_ENDPOINT
-        );
+        if (AZURE_VISION_KEY && AZURE_VISION_ENDPOINT) {
+            const visionCredentials = new ApiKeyCredentials({
+                inHeader: { "Ocp-Apim-Subscription-Key": AZURE_VISION_KEY },
+            });
+            this.visionClient = new ComputerVisionClient(
+                visionCredentials,
+                AZURE_VISION_ENDPOINT
+            );
+        }
 
         // Check if content moderation is enabled
         if (AZURE_CONTENT_MODERATOR_KEY && AZURE_CONTENT_MODERATOR_ENDPOINT) {
@@ -67,6 +78,8 @@ export class MultimodalProcessor {
                 AZURE_SPEECH_REGION
             );
         }
+
+        this.initialized = true;
     }
 
     async processMultimodalInput(inputs: {
@@ -75,6 +88,8 @@ export class MultimodalProcessor {
         speech?: string;
         photo?: string;
     }): Promise<any> {
+        this.initialize(); // Ensure initialization before processing
+
         console.log("Processing multimodal input with Azure AI services");
 
         // Use Responsible AI tools to validate inputs if available
@@ -141,6 +156,12 @@ export class MultimodalProcessor {
     }
 
     private async processPhoto(photoDataUrl: string): Promise<any> {
+        this.initialize();
+        
+        if (!this.visionClient) {
+            throw new Error("Vision client not initialized. Check Azure Vision API configuration.");
+        }
+        
         try {
             // Extract base64 image data
             const base64Image = photoDataUrl.replace(
@@ -718,6 +739,12 @@ export class MultimodalProcessor {
     }
 
     private async combineInputsWithGPT4V(inputs: any): Promise<any> {
+        this.initialize();
+        
+        if (!this.openAIClient) {
+            throw new Error("OpenAI client not initialized. Check Azure OpenAI API configuration.");
+        }
+        
         try {
             // Prepare system message
             const systemPrompt =
@@ -900,6 +927,8 @@ export class MultimodalProcessor {
 
     // Speech recognition method
     async recognizeSpeech(audioBlob: Blob): Promise<string> {
+        this.initialize();
+        
         if (!this.speechConfig) {
             throw new Error(
                 "Speech service not initialized. Check Azure Speech configuration."
